@@ -58,14 +58,6 @@ const createIdInRange = (min, max) => {
   };
 };
 
-const makeArray = (count, createObject) => {
-  const array = [];
-  for (let i = 0; i < count; i++) {
-    array.push(createObject());
-  }
-  return array;
-};
-
 const generateCommentId = createIdInRange(1, COMMENT_ID_LIMIT);
 const generatePhotId = createIdInRange(1, PHOTO_ID_LIMIT);
 
@@ -86,10 +78,9 @@ const newPhoto = () => {
     url: `photos/${id}.jpg`,
     description: getRandomInArray(DEFAULT_PHOTO_DESCRIPTIONS, DEFAULT_PHOTO_DESCRIPTIONS.length),
     likes: getRandomInRange(LIKES_START, LIKES_LIMIT),
-    comments: makeArray(getRandomInRange(0, COMMENTS_LIMIT), newComment),
+    comments: Array.from({ length: getRandomInRange(0, COMMENTS_LIMIT) }, newComment),
   };
 };
 
-const generatePhoto = (count) => makeArray(count, newPhoto);
+const generatePhoto = (count) => Array.from({ length: count }, newPhoto);
 generatePhoto(PHOTOS_LIMIT);
-
