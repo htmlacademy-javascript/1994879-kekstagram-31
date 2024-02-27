@@ -28,14 +28,18 @@ const PHOTO_ID_LIMIT = 25;
 const LIKES_LIMIT = 200;
 const LIKES_START = 15;
 const COMMENTS_LIMIT = 30;
+const COMMENTS_START = 0;
 const COMMENT_ID_LIMIT = 100;
 const PHRASES_LIMIT = 2;
+const AVATARS_LIMIT = 6;
+const AVATARS_START = 0;
+const DEFAULT_START = 1;
 
 const getRandomInRange = (min, max) => Math.round(Math.random() * (max - min) + min);
 
 const getRandomInArray = (array, count = 1) => {
   const result = [];
-  const limit = getRandomInRange(1, count);
+  const limit = getRandomInRange(DEFAULT_START, count);
   for (let i = 0; i < limit; i++) {
     result.push(array[getRandomInRange(0, array.length - 1)]);
   }
@@ -46,8 +50,8 @@ const createIdInRange = (min, max) => {
   const existingIds = [];
 
   return () => {
-    if (existingIds.length >= max) {
-      return -1;
+    if (existingIds.length >= (max - min + 1)) {
+      return null;
     }
     let id = getRandomInRange(min, max);
     while (existingIds.includes(id)) {
@@ -58,13 +62,13 @@ const createIdInRange = (min, max) => {
   };
 };
 
-const generateCommentId = createIdInRange(1, COMMENT_ID_LIMIT);
-const generatePhotId = createIdInRange(1, PHOTO_ID_LIMIT);
+const generateCommentId = createIdInRange(DEFAULT_START, COMMENT_ID_LIMIT);
+const generatePhotId = createIdInRange(DEFAULT_START, PHOTO_ID_LIMIT);
 
 const newComment = () => {
   const comment = {
     id: generateCommentId(),
-    avatar: `img/avatar-${getRandomInRange(1, 6)}.svg`,
+    avatar: `img/avatar-${getRandomInRange(AVATARS_START, AVATARS_LIMIT)}.svg`,
     message: getRandomInArray(DEFAULT_MESSAGES, PHRASES_LIMIT),
     name: getRandomInArray(DEFAULT_AUTHORS),
   };
@@ -78,7 +82,7 @@ const newPhoto = () => {
     url: `photos/${id}.jpg`,
     description: getRandomInArray(DEFAULT_PHOTO_DESCRIPTIONS, DEFAULT_PHOTO_DESCRIPTIONS.length),
     likes: getRandomInRange(LIKES_START, LIKES_LIMIT),
-    comments: Array.from({ length: getRandomInRange(0, COMMENTS_LIMIT) }, newComment),
+    comments: Array.from({ length: getRandomInRange(COMMENTS_START, COMMENTS_LIMIT) }, newComment),
   };
 };
 
