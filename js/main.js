@@ -1,4 +1,5 @@
 import { generatePhoto } from './data.js';
+import { renderThumbnails } from './render-thumbnails.js';
 
 const PHOTOS_LIMIT = 25;
-generatePhoto(PHOTOS_LIMIT);
+renderThumbnails(generatePhoto(PHOTOS_LIMIT));
