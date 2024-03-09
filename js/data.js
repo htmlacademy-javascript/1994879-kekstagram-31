@@ -25,16 +25,16 @@ const DEFAULT_PHOTO_DESCRIPTIONS = [
   'Самое удачное фото.',
 ];
 
-const LIKES_RANGE = { min: 15, max: 200 };
-const COMMENTS_RANGE = { min: 0, max: 30 };
-const AVATARS_RANGE = { min: 1, max: 6 };
+const LikesRange = { MIN: 15, MAX: 200 };
+const CommentsRange = { MIN: 0, MAX: 30 };
+const AvatarsRange = { MIN: 1, MAX: 6 };
 
 const generateCommentId = createIdCounter();
 const generatePhotId = createIdCounter();
 
 const newComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInRange(AVATARS_RANGE)}.svg`,
+  avatar: `img/avatar-${getRandomInRange(AvatarsRange.MIN, AvatarsRange.MAX)}.svg`,
   message: getRandomElement(DEFAULT_MESSAGES),
   name: getRandomElement(DEFAULT_AUTHORS),
 });
@@ -45,8 +45,8 @@ const newPhoto = () => {
     id,
     url: `photos/${id}.jpg`,
     description: getRandomElement(DEFAULT_PHOTO_DESCRIPTIONS),
-    likes: getRandomInRange(LIKES_RANGE),
-    comments: Array.from({ length: getRandomInRange(COMMENTS_RANGE) }, newComment),
+    likes: getRandomInRange(LikesRange.MIN, LikesRange.MAX),
+    comments: Array.from({ length: getRandomInRange(CommentsRange.MIN, CommentsRange.MAX) }, newComment),
   };
 };
 
