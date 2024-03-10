@@ -1,10 +1,9 @@
-const template = document.querySelector('#picture').content;
-const picturesContainer = document.querySelector('.pictures');
-const templateImg = template.querySelector('.picture__img');
-const templateLikes = template.querySelector('.picture__likes');
-const templateComments = template.querySelector('.picture__comments');
+import { renderPhoto } from './render-photo';
+import { template, picturesContainer, templateImg, templateLikes, templateComments } from './selectors-key';
+import { renderArray } from './util';
 
-const getThumbnail = ({ url, description, likes , comments }) => {
+const getThumbnail = ({ id, url, description, likes , comments }) => {
+  templateImg.id = id;
   templateImg.src = url;
   templateImg.alt = description;
   templateLikes.textContent = likes.toString();
@@ -12,12 +11,12 @@ const getThumbnail = ({ url, description, likes , comments }) => {
   return template.cloneNode(true);
 };
 
-const renderThumbnails = (photos) => {
-  const documentFragment = document.createDocumentFragment();
+const renderThumbnails = (photos) => renderArray(photos, getThumbnail, picturesContainer);
 
-  photos.forEach((photo) => documentFragment.append(getThumbnail(photo)));
-  
-  picturesContainer.append(documentFragment);
-};
+picturesContainer.addEventListener('click', (evt) => {
+  if (evt.target.closest('.picture')) {
+    renderPhoto(evt.target.id);
+  }
+});
 
 export { renderThumbnails };

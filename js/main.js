@@ -1,5 +1,6 @@
-import { generatePhoto } from './data.js';
-import { renderThumbnails } from './render-thumbnails.js';
+import { initGallary } from './gallary.js';
+import { renderThumbnails } from './render-thumbnails';
 
 const PHOTOS_LIMIT = 25;
-renderThumbnails(generatePhoto(PHOTOS_LIMIT));
+const photos = initGallary(PHOTOS_LIMIT);
+renderThumbnails(photos);
