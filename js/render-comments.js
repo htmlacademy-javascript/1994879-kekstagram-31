@@ -1,5 +1,5 @@
-import { commentsContainer } from './selectors-key';
-import { renderArray, newElement } from './util';
+import { commentsContainerElement } from './selectors-key';
+import { renderElements, newElement } from './util';
 
 const getComment = ({ avatar, name, message }) => {
   const li = newElement('li', 'social__comment');
@@ -16,16 +16,11 @@ const getComment = ({ avatar, name, message }) => {
   return li;
 };
 
-const clearComments = () => {
-  //commentsContainer.innerHTML = '';
-  while (commentsContainer.firstChild) {
-    commentsContainer.removeChild(commentsContainer.firstChild);
-  }
-};
+const clearComments = () => (commentsContainerElement.innerText = '');
 
 const renderComments = (comments) => {
   clearComments();
-  renderArray(comments, getComment, commentsContainer);
+  renderElements(comments, getComment, commentsContainerElement);
 };
 
 export { renderComments };

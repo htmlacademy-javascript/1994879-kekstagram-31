@@ -1,22 +1,27 @@
-import { renderPhoto } from './render-photo';
-import { template, picturesContainer, templateImg, templateLikes, templateComments } from './selectors-key';
-import { renderArray } from './util';
+import { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement } from './selectors-key';
+import { renderElements } from './util';
+import { THUMBNAIL_KEY } from './config';
+import { showPhotoById } from './gallary';
 
 const getThumbnail = ({ id, url, description, likes , comments }) => {
-  templateImg.id = id;
-  templateImg.src = url;
-  templateImg.alt = description;
-  templateLikes.textContent = likes.toString();
-  templateComments.textContent = comments.length.toString();
-  return template.cloneNode(true);
+  templateImgElement.dataset.id = id;
+  templateImgElement.dataset.key = THUMBNAIL_KEY;
+  templateImgElement.src = url;
+  templateImgElement.alt = description;
+  templateLikesElement.textContent = likes.toString();
+  templateCommentsElement.textContent = comments.length.toString();
+  return templateElement.cloneNode(true);
 };
 
-const renderThumbnails = (photos) => renderArray(photos, getThumbnail, picturesContainer);
-
-picturesContainer.addEventListener('click', (evt) => {
-  if (evt.target.closest('.picture')) {
-    renderPhoto(evt.target.id);
+const onPicturesContainerElementClick = (evt) => {
+  if (evt.target.dataset.key === THUMBNAIL_KEY) {
+    showPhotoById(Number(evt.target.dataset.id));
   }
-});
+};
+
+const renderThumbnails = (photos) => {
+  renderElements(photos, getThumbnail, picturesContainerElement);
+  picturesContainerElement.addEventListener('click', onPicturesContainerElementClick);
+};
 
 export { renderThumbnails };

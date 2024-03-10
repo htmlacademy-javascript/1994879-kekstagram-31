@@ -16,9 +16,9 @@ const isEnterKey = (evt) => evt.key === 'Enter';
 const hideElement = (element) => element.classList.add('hidden');
 const showElement = (element) => element.classList.remove('hidden');
 
-const renderArray = (items, makeRender, container) => {
+const renderElements = (elements, makeRender, container) => {
   const documentFragment = document.createDocumentFragment();
-  items.forEach((item) => documentFragment.append(makeRender(item)));
+  elements.forEach((element) => documentFragment.append(makeRender(element)));
   container.append(documentFragment);
 };
 
@@ -28,4 +28,4 @@ const newElement = (tag, className) => {
   return element;
 };
 
-export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, hideElement, showElement, renderArray, newElement };
+export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, hideElement, showElement, renderElements, newElement };

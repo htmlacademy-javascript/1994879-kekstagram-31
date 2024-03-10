@@ -1,0 +1,5 @@
+const PHOTOS_LIMIT = 25;
+const COMMENTS_SHOW_COUNT = 2;
+const THUMBNAIL_KEY = 'thumbnail';
+
+export { PHOTOS_LIMIT, COMMENTS_SHOW_COUNT, THUMBNAIL_KEY };
