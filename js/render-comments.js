@@ -19,8 +19,7 @@ const getComment = ({ avatar, name, message }) => {
 const clearComments = () => (commentsContainerElement.innerText = '');
 
 const renderComments = (comments) => {
-  clearComments();
   renderElements(comments, getComment, commentsContainerElement);
 };
 
-export { renderComments };
+export { renderComments, clearComments };
