@@ -1,10 +1,10 @@
-const checkLimit = (string, limit) => (string.legth <= limit);
+const checkLimit = (value, limit) => (value.legth <= limit);
 
 const isPalindron = (value) => {
-  const string = String(value).replaceAll(' ', '').toUpperCase();
+  const str = String(value).replaceAll(' ', '').toUpperCase();
 
-  for (let i = 0; i < Math.ceil(string.length / 2); i++) {
-    if (string.at(i) !== string.at(-1 - i)) {
+  for (let i = 0; i < Math.ceil(str.length / 2); i++) {
+    if (str.at(i) !== str.at(-1 - i)) {
       return false;
     }
   }
@@ -13,9 +13,9 @@ const isPalindron = (value) => {
 
 const extractNumbers = (value) => {
   let result = '';
-  const string = String(value).replaceAll(' ', '');
-  for (let i = 0; i < string.length; i++) {
-    result += (Number.isInteger(+string.at(i))) ? string.at(i) : '';
+  const str = String(value).replaceAll(' ', '');
+  for (let i = 0; i < str.length; i++) {
+    result += (Number.isInteger(+str.at(i))) ? str.at(i) : '';
   }
   return result.length > 0 ? +result : NaN;
 };
