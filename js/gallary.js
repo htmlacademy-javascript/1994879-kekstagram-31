@@ -16,7 +16,7 @@ const isAllCommentsRendered = () => currentCommentsCount >= currentPhoto.comment
 
 const renderPartComments = () => {
   const part = currentPhoto.comments.slice(currentCommentsCount, currentCommentsCount + COMMENTS_SHOW_COUNT);
-  renderComments(part)
+  renderComments(part);
   currentCommentsCount += part.length;
   return currentCommentsCount;
 };

@@ -25,7 +25,7 @@ const onCancelButtonClick = () => closePhoto();
 const loadComments = () => {
   commentsShowElement.textContent = renderPartComments();
   if (isAllCommentsRendered()) {
-    hideElement(commentsLoaderElement);  
+    hideElement(commentsLoaderElement);
   }
 };
 
