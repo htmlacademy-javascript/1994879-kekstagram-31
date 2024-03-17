@@ -16,6 +16,16 @@ const isEnterKey = (evt) => evt.key === 'Enter';
 const hideElement = (element) => element.classList.add('hidden');
 const showElement = (element) => element.classList.remove('hidden');
 
+const openModalElement = (element) => {
+  showElement(element);
+  document.body.classList.add('modal-open');
+};
+
+const closeModalElement = (element) => {
+  hideElement(element);
+  document.body.classList.remove('modal-open');
+};
+
 const renderElements = (elements, makeRender, container) => {
   const documentFragment = document.createDocumentFragment();
   elements.forEach((element) => documentFragment.append(makeRender(element)));
@@ -29,3 +39,4 @@ const newElement = (tag, className) => {
 };
 
 export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, hideElement, showElement, renderElements, newElement };
+export { openModalElement, closeModalElement };

@@ -1,4 +1,4 @@
-import { isEscapeKey, hideElement, showElement } from './util';
+import { isEscapeKey, hideElement, showElement, openModalElement, closeModalElement } from './util';
 import { renderPartComments, isAllCommentsRendered } from './gallary';
 import { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, commentsLoaderElement, commentsTotalElement,
   commentsShowElement, cancelButtonElement } from './selectors-key';
@@ -45,9 +45,8 @@ const photoRemoveListeners = () => {
 
 const openPhotoModal = (photo) => {
   renderPhoto(photo);
-  showElement(photoElement);
+  openModalElement(photoElement);
   showElement(commentsLoaderElement);
-  document.body.classList.add('modal-open');
 
   clearComments();
   loadComments();
@@ -55,9 +54,7 @@ const openPhotoModal = (photo) => {
 };
 
 function closePhoto() {
-  hideElement(photoElement);
-  document.body.classList.remove('modal-open');
-
+  closeModalElement(photoElement);
   photoRemoveListeners();
 }
 

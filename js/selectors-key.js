@@ -17,6 +17,17 @@ const commentsContainerElement = photoElement.querySelector('.social__comments')
 
 const cancelButtonElement = photoElement.querySelector('#picture-cancel');
 
+const uploadFormElement = document.querySelector('.img-upload__form');
+const uploadInputElement = uploadFormElement.querySelector('.img-upload__input');
+const uploadOverlayElement = uploadFormElement.querySelector('.img-upload__overlay');
+const uploadCancelButtonElement = uploadFormElement.querySelector('.img-upload__cancel');
+const uploadPreviewImgElement = uploadFormElement.querySelector('.img-upload__preview img');
+
+const textHashtagElement = document.querySelector('.text__hashtags');
+const textDescriptionElement = document.querySelector('.text__description');
+
 export { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement };
 export { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, cancelButtonElement };
 export { commentsContainerElement, commentsCountElement, commentsLoaderElement, commentsTotalElement, commentsShowElement};
+export { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, uploadPreviewImgElement };
+export { textHashtagElement, textDescriptionElement };
