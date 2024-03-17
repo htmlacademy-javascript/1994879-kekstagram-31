@@ -1,6 +1,6 @@
 import { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, textHashtagElement, textDescriptionElement } from './selectors-key';
 import { closeModalElement, openModalElement, isEscapeKey } from './util';
-import { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUniqueCount, validateComments, ErrorValidation } from './validation';
+import { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUnique, validateComments, ErrorValidation } from './validation';
 
 const isTextElementFocused = () => document.activeElement === textHashtagElement || document.activeElement === textDescriptionElement;
 
@@ -44,13 +44,12 @@ const formUpload = () => {
   const pristine = new Pristine(uploadFormElement, pristineConfig, true);
   pristine.addValidator(textHashtagElement, validateHahstagsCount, ErrorValidation.HASHTAG_COUNT);
   pristine.addValidator(textHashtagElement, validateHahstagsFormat, ErrorValidation.HASHTAG_FORMAT);
-  pristine.addValidator(textHashtagElement, validateHahstagsUniqueCount, ErrorValidation.HASHTAG_UNIQUE);
+  pristine.addValidator(textHashtagElement, validateHahstagsUnique, ErrorValidation.HASHTAG_UNIQUE);
   pristine.addValidator(textDescriptionElement, validateComments, ErrorValidation.COMMENT_LIMIT);
 
   const onSubmitForm = (evt) => {
     evt.preventDefault();
-    const isValid = pristine.validate();
-    if (isValid) {
+    if (pristine.validate()) {
       closeUpload();
     }
   };

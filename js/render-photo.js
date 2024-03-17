@@ -26,6 +26,8 @@ const loadComments = () => {
   commentsShowElement.textContent = renderPartComments();
   if (isAllCommentsRendered()) {
     hideElement(commentsLoaderElement);
+  } else {
+    showElement(commentsLoaderElement);
   }
 };
 
@@ -46,7 +48,6 @@ const photoRemoveListeners = () => {
 const openPhotoModal = (photo) => {
   renderPhoto(photo);
   openModalElement(photoElement);
-  showElement(commentsLoaderElement);
 
   clearComments();
   loadComments();

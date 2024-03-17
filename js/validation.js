@@ -16,11 +16,11 @@ const validateHahstagsCount = (value) => normalizeHashtags(value).length <= HASH
 
 const validateHahstagsFormat = (value) => normalizeHashtags(value).every((tag) => hashtagFormat.test(tag));
 
-const validateHahstagsUniqueCount = (value) => {
+const validateHahstagsUnique = (value) => {
   const tags = normalizeHashtags(value);
   return tags.length === new Set(tags).size;
 };
 
 const validateComments = (value) => value.length >= CommentValidationRange.MIN && value.length <= CommentValidationRange.MAX;
 
-export { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUniqueCount, validateComments, ErrorValidation };
+export { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUnique, validateComments, ErrorValidation };
