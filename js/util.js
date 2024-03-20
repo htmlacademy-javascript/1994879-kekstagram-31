@@ -12,9 +12,11 @@ const createIdCounter = () => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 const isEnterKey = (evt) => evt.key === 'Enter';
+const isEffectElement = (evt) => evt.target?.name === 'effect';
 
 const hideElement = (element) => element.classList.add('hidden');
 const showElement = (element) => element.classList.remove('hidden');
+const toggleVisibilityElement = (condition, element) => condition ? hideElement(element) : showElement(element);
 
 const openModalElement = (element) => {
   showElement(element);
@@ -38,5 +40,5 @@ const newElement = (tag, className) => {
   return element;
 };
 
-export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, hideElement, showElement, renderElements, newElement };
+export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, isEffectElement, hideElement, showElement, toggleVisibilityElement, renderElements, newElement };
 export { openModalElement, closeModalElement };

@@ -1,4 +1,4 @@
-import { isEscapeKey, hideElement, showElement, openModalElement, closeModalElement } from './util';
+import { isEscapeKey, openModalElement, closeModalElement, toggleVisibilityElement } from './util';
 import { renderPartComments, isAllCommentsRendered } from './gallary';
 import { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, commentsLoaderElement, commentsTotalElement,
   commentsShowElement, cancelButtonElement } from './selectors-key';
@@ -24,11 +24,7 @@ const onCancelButtonClick = () => closePhoto();
 
 const loadComments = () => {
   commentsShowElement.textContent = renderPartComments();
-  if (isAllCommentsRendered()) {
-    hideElement(commentsLoaderElement);
-  } else {
-    showElement(commentsLoaderElement);
-  }
+  toggleVisibilityElement(isAllCommentsRendered(), commentsLoaderElement);
 };
 
 const onCommentsLoaderClick = () => loadComments();

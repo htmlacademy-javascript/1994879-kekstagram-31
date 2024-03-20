@@ -26,8 +26,19 @@ const uploadPreviewImgElement = uploadFormElement.querySelector('.img-upload__pr
 const textHashtagElement = document.querySelector('.text__hashtags');
 const textDescriptionElement = document.querySelector('.text__description');
 
+const scaleSmallerElement = document.querySelector('.scale__control--smaller');
+const scaleBiggerElement = document.querySelector('.scale__control--bigger');
+const scaleValueElement = document.querySelector('.scale__control--value');
+
+const effectLevelValueElement = document.querySelector('.effect-level__value');
+const effectSliderElement = document.querySelector('.effect-level__slider');
+const effectListElement = document.querySelector('.effects__list');
+const effectLevelContainerElement = document.querySelector('.img-upload__effect-level');
+
 export { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement };
 export { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, cancelButtonElement };
 export { commentsContainerElement, commentsCountElement, commentsLoaderElement, commentsTotalElement, commentsShowElement};
 export { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, uploadPreviewImgElement };
 export { textHashtagElement, textDescriptionElement };
+export { scaleSmallerElement, scaleBiggerElement, scaleValueElement };
+export { effectLevelValueElement, effectSliderElement, effectListElement, effectLevelContainerElement };
