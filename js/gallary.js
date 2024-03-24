@@ -1,7 +1,9 @@
-import { COMMENTS_SHOW_COUNT } from './config';
+
 import { generatePhoto } from './data';
 import { renderComments } from './render-comments';
 import { openPhotoModal } from './render-photo';
+
+const COMMENTS_SHOW_COUNT = 5;
 
 let photos = [];
 let currentPhoto = null;

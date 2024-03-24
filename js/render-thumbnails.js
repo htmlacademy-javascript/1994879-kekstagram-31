@@ -1,7 +1,8 @@
 import { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement } from './selectors-key';
 import { renderElements } from './util';
-import { THUMBNAIL_KEY } from './config';
 import { showPhotoById } from './gallary';
+
+const THUMBNAIL_KEY = 'thumbnail';
 
 const getThumbnail = ({ id, url, description, likes , comments }) => {
   templateImgElement.dataset.id = id;
