@@ -2,8 +2,10 @@ import { initGallary } from './gallary.js';
 import { renderThumbnails } from './render-thumbnails';
 import { formUpload } from './form-upload.js';
 
-const PHOTOS_LIMIT = 25;
+const start = async () => {
+  const photos = await initGallary();
+  renderThumbnails(photos);
+  formUpload();
+};
 
-const photos = initGallary(PHOTOS_LIMIT);
-renderThumbnails(photos);
-formUpload();
+start();

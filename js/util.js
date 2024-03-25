@@ -40,5 +40,12 @@ const newElement = (tag, className) => {
   return element;
 };
 
-export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, isEffectElement, hideElement, showElement, toggleVisibilityElement, renderElements, newElement };
+const bodyAppendElement = (templateElement) => {
+  const element = templateElement.cloneNode(true);
+  document.body.append(element);
+  return element;
+};
+
+export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, isEffectElement, hideElement, showElement };
+export { toggleVisibilityElement, renderElements, newElement, bodyAppendElement };
 export { openModalElement, closeModalElement };

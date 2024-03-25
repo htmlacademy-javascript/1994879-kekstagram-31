@@ -1,7 +1,7 @@
 
-import { generatePhoto } from './data';
 import { renderComments } from './render-comments';
 import { openPhotoModal } from './render-photo';
+import { getData } from './server-data';
 
 const COMMENTS_SHOW_COUNT = 5;
 
@@ -9,8 +9,8 @@ let photos = [];
 let currentPhoto = null;
 let currentCommentsCount = 0;
 
-const initGallary = (count) => {
-  photos = generatePhoto(count);
+const initGallary = async () => {
+  photos = await getData();
   return photos;
 };
 
