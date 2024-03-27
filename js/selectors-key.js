@@ -1,3 +1,7 @@
+const SUCCESS_BUTTON_CLASS = '.success__button';
+const ERROR_BUTTON_CLASS = '.error__button';
+const PICTURE_CLASS = '.picture';
+
 const templateElement = document.querySelector('#picture').content;
 const templateImgElement = templateElement.querySelector('.picture__img');
 const templateLikesElement = templateElement.querySelector('.picture__likes');
@@ -22,8 +26,9 @@ const uploadInputElement = uploadFormElement.querySelector('.img-upload__input')
 const uploadOverlayElement = uploadFormElement.querySelector('.img-upload__overlay');
 const uploadCancelButtonElement = uploadFormElement.querySelector('.img-upload__cancel');
 const uploadPreviewImgElement = uploadFormElement.querySelector('.img-upload__preview img');
+const submitButtonElement = uploadFormElement.querySelector('#upload-submit');
 
-const textHashtagElement = document.querySelector('.text__hashtags');
+const textHashtagsElement = document.querySelector('.text__hashtags');
 const textDescriptionElement = document.querySelector('.text__description');
 
 const scaleSmallerElement = document.querySelector('.scale__control--smaller');
@@ -34,11 +39,20 @@ const effectLevelValueElement = document.querySelector('.effect-level__value');
 const effectSliderElement = document.querySelector('.effect-level__slider');
 const effectListElement = document.querySelector('.effects__list');
 const effectLevelContainerElement = document.querySelector('.img-upload__effect-level');
+const effectPreviewElements = effectListElement.querySelectorAll('.effects__preview');
+
+const templateDataErrorElement = document.querySelector('#data-error').content.querySelector('.data-error');
+const templateErrorElement = document.querySelector('#error').content.querySelector('.error');
+const templateSuccessElement = document.querySelector('#success').content.querySelector('.success');
+
+const imageFiltersElement = document.querySelector('.img-filters');
 
 export { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement };
-export { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, cancelButtonElement };
+export { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, cancelButtonElement, submitButtonElement };
 export { commentsContainerElement, commentsCountElement, commentsLoaderElement, commentsTotalElement, commentsShowElement};
 export { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, uploadPreviewImgElement };
-export { textHashtagElement, textDescriptionElement };
+export { textHashtagsElement, textDescriptionElement };
 export { scaleSmallerElement, scaleBiggerElement, scaleValueElement };
-export { effectLevelValueElement, effectSliderElement, effectListElement, effectLevelContainerElement };
+export { effectLevelValueElement, effectSliderElement, effectListElement, effectLevelContainerElement, effectPreviewElements };
+export { templateDataErrorElement, templateErrorElement, templateSuccessElement, SUCCESS_BUTTON_CLASS, ERROR_BUTTON_CLASS, PICTURE_CLASS };
+export { imageFiltersElement };

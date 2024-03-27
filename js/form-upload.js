@@ -1,15 +1,22 @@
 import { onScaleSmallerClick, onScaleBiggerClick, scaleDefault } from './scale-photo';
-import { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, textHashtagElement, textDescriptionElement } from './selectors-key';
-import { scaleSmallerElement, scaleBiggerElement, effectListElement } from './selectors-key';
+import { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, submitButtonElement, textHashtagsElement, textDescriptionElement } from './selectors-key';
+import { scaleSmallerElement, scaleBiggerElement, effectListElement, effectPreviewElements, uploadPreviewImgElement } from './selectors-key';
 import { closeModalElement, openModalElement, isEscapeKey } from './util';
-import { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUnique, validateComments, ErrorValidation } from './validation';
+import { createValidator, resetValidator, isValidationPass } from './validation';
 import { onEffectListClick, createEffectSlider, resetEffect } from './effect-photo';
+import { sendData } from './server-data';
+import { showSuccessMessage, showErrorMessage } from './messages';
 
-const isTextElementFocused = () => document.activeElement === textHashtagElement || document.activeElement === textDescriptionElement;
+const SubmitButtonText = {
+  SENDING: 'Отправляется...',
+  IDLE: 'Опубликовать',
+};
+
+const isTextElementFocused = () => document.activeElement === textHashtagsElement || document.activeElement === textDescriptionElement;
 
 const onUploadKeydown = (evt) => {
   if (isEscapeKey(evt) && !isTextElementFocused()) {
-    evt.preventDefault();
+    evt.stopPropagation();
     closeUpload();
   }
 };
@@ -32,11 +39,29 @@ const uploadRemoveListeners = () => {
   effectListElement.removeEventListener('click', onEffectListClick);
 };
 
-const openUpload = () => {
-  openModalElement(uploadOverlayElement);
-  uploadAddListeners();
+const setPreviewImage = (file) => {
+  const url = URL.createObjectURL(file);
+  uploadPreviewImgElement.src = url;
+  uploadPreviewImgElement.alt = file.name;
+  effectPreviewElements.forEach((previewElement) => {
+    previewElement.style.background = `url(${url}) center no-repeat`;
+    previewElement.style.backgroundSize = '100% auto';
+  });
+};
+
+const resetForm = () => {
+  resetValidator();
   scaleDefault();
   resetEffect();
+  textHashtagsElement.value = '';
+  textDescriptionElement.value = '';
+  uploadInputElement.value = '';
+};
+
+const openUpload = (file) => {
+  setPreviewImage(file);
+  openModalElement(uploadOverlayElement);
+  uploadAddListeners();
 };
 
 const onUploadInputChange = (evt) => {
@@ -44,28 +69,40 @@ const onUploadInputChange = (evt) => {
   openUpload(evt.target.files[0]);
 };
 
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
+};
+
+const sendForm = async (data) => {
+  const formData = new FormData(data);
+  const response = await sendData(formData);
+  if (response) {
+    showSuccessMessage();
+    closeUpload();
+  } else {
+    showErrorMessage();
+  }
+};
+
+const onSubmitForm = async (evt) => {
+  evt.preventDefault();
+  if (isValidationPass()) {
+    blockSubmitButton();
+    await sendForm(evt.target);
+    unblockSubmitButton();
+  }
+};
+
 const formUpload = () => {
-  const pristineConfig = {
-    classTo: 'img-upload__field-wrapper',
-    errorTextParent: 'img-upload__field-wrapper',
-    errorTextClass: 'img-upload__field-wrapper--error',
-    errorTextTag: 'div',
-  };
-
-  const pristine = new Pristine(uploadFormElement, pristineConfig, true);
-  pristine.addValidator(textHashtagElement, validateHahstagsCount, ErrorValidation.HASHTAG_COUNT);
-  pristine.addValidator(textHashtagElement, validateHahstagsFormat, ErrorValidation.HASHTAG_FORMAT);
-  pristine.addValidator(textHashtagElement, validateHahstagsUnique, ErrorValidation.HASHTAG_UNIQUE);
-  pristine.addValidator(textDescriptionElement, validateComments, ErrorValidation.COMMENT_LIMIT);
-
+  createValidator();
   createEffectSlider();
-
-  const onSubmitForm = (evt) => {
-    evt.preventDefault();
-    if (pristine.validate()) {
-      closeUpload();
-    }
-  };
+  resetForm();
 
   uploadFormElement.addEventListener('submit', onSubmitForm);
   uploadInputElement.addEventListener('change', onUploadInputChange);
@@ -74,6 +111,7 @@ const formUpload = () => {
 function closeUpload() {
   closeModalElement(uploadOverlayElement);
   uploadRemoveListeners();
+  resetForm();
 }
 
 export { formUpload };
