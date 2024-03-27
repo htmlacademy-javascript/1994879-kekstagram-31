@@ -1,8 +1,8 @@
 import { onScaleSmallerClick, onScaleBiggerClick, scaleDefault } from './scale-photo';
 import { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, submitButtonElement, textHashtagsElement, textDescriptionElement } from './selectors-key';
-import { scaleSmallerElement, scaleBiggerElement, effectListElement, uploadPreviewImgElement } from './selectors-key';
+import { scaleSmallerElement, scaleBiggerElement, effectListElement, effectPreviewElements, uploadPreviewImgElement } from './selectors-key';
 import { closeModalElement, openModalElement, isEscapeKey } from './util';
-import { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUnique, validateComments, ErrorValidation } from './validation';
+import { createValidator, resetValidator, isValidationPass } from './validation';
 import { onEffectListClick, createEffectSlider, resetEffect } from './effect-photo';
 import { sendData } from './server-data';
 import { showSuccessMessage, showErrorMessage } from './messages';
@@ -40,11 +40,17 @@ const uploadRemoveListeners = () => {
 };
 
 const setPreviewImage = (file) => {
-  uploadPreviewImgElement.src = URL.createObjectURL(file);
+  const url = URL.createObjectURL(file);
+  uploadPreviewImgElement.src = url;
   uploadPreviewImgElement.alt = file.name;
+  effectPreviewElements.forEach((previewElement) => {
+    previewElement.style.background = `url(${url}) center no-repeat`;
+    previewElement.style.backgroundSize = '100% auto';
+  });
 };
 
 const resetForm = () => {
+  resetValidator();
   scaleDefault();
   resetEffect();
   textHashtagsElement.value = '';
@@ -84,31 +90,19 @@ const sendForm = async (data) => {
   }
 };
 
+const onSubmitForm = async (evt) => {
+  evt.preventDefault();
+  if (isValidationPass()) {
+    blockSubmitButton();
+    await sendForm(evt.target);
+    unblockSubmitButton();
+  }
+};
+
 const formUpload = () => {
-  const pristineConfig = {
-    classTo: 'img-upload__field-wrapper',
-    errorTextParent: 'img-upload__field-wrapper',
-    errorTextClass: 'img-upload__field-wrapper--error',
-    errorTextTag: 'div',
-  };
-
-  const pristine = new Pristine(uploadFormElement, pristineConfig, true);
-  pristine.addValidator(textHashtagsElement, validateHahstagsCount, ErrorValidation.HASHTAG_COUNT);
-  pristine.addValidator(textHashtagsElement, validateHahstagsFormat, ErrorValidation.HASHTAG_FORMAT);
-  pristine.addValidator(textHashtagsElement, validateHahstagsUnique, ErrorValidation.HASHTAG_UNIQUE);
-  pristine.addValidator(textDescriptionElement, validateComments, ErrorValidation.COMMENT_LIMIT);
-
+  createValidator();
   createEffectSlider();
   resetForm();
-
-  const onSubmitForm = async (evt) => {
-    evt.preventDefault();
-    if (pristine.validate()) {
-      blockSubmitButton();
-      await sendForm(evt.target);
-      unblockSubmitButton();
-    }
-  };
 
   uploadFormElement.addEventListener('submit', onSubmitForm);
   uploadInputElement.addEventListener('change', onUploadInputChange);

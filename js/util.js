@@ -1,3 +1,5 @@
+const HIDDEN_CLASS = 'hidden';
+
 const getRandomInRange = (min, max) => Math.round(Math.random() * (max - min) + min);
 const getRandomElement = (elements) => elements[getRandomInRange(0, elements.length - 1)];
 
@@ -11,11 +13,10 @@ const createIdCounter = () => {
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
-const isEnterKey = (evt) => evt.key === 'Enter';
 const isEffectElement = (evt) => evt.target?.name === 'effect';
 
-const hideElement = (element) => element.classList.add('hidden');
-const showElement = (element) => element.classList.remove('hidden');
+const hideElement = (element) => element.classList.add(HIDDEN_CLASS);
+const showElement = (element) => element.classList.remove(HIDDEN_CLASS);
 const toggleVisibilityElement = (condition, element) => condition ? hideElement(element) : showElement(element);
 
 const openModalElement = (element) => {
@@ -46,6 +47,16 @@ const bodyAppendElement = (templateElement) => {
   return element;
 };
 
-export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEnterKey, isEffectElement, hideElement, showElement };
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEffectElement, hideElement, showElement };
 export { toggleVisibilityElement, renderElements, newElement, bodyAppendElement };
 export { openModalElement, closeModalElement };
+export { debounce };

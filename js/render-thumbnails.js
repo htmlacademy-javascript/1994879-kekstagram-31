@@ -1,4 +1,4 @@
-import { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement } from './selectors-key';
+import { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement, PICTURE_CLASS } from './selectors-key';
 import { renderElements } from './util';
 import { showPhotoById } from './gallary';
 
@@ -20,7 +20,12 @@ const onPicturesContainerElementClick = (evt) => {
   }
 };
 
+const clearThumbnails = () => {
+  picturesContainerElement.querySelectorAll(PICTURE_CLASS).forEach((pictureElement) => pictureElement.remove());
+};
+
 const renderThumbnails = (photos) => {
+  clearThumbnails();
   renderElements(photos, getThumbnail, picturesContainerElement);
   picturesContainerElement.addEventListener('click', onPicturesContainerElementClick);
 };

@@ -1,5 +1,6 @@
 const SUCCESS_BUTTON_CLASS = '.success__button';
 const ERROR_BUTTON_CLASS = '.error__button';
+const PICTURE_CLASS = '.picture';
 
 const templateElement = document.querySelector('#picture').content;
 const templateImgElement = templateElement.querySelector('.picture__img');
@@ -38,10 +39,13 @@ const effectLevelValueElement = document.querySelector('.effect-level__value');
 const effectSliderElement = document.querySelector('.effect-level__slider');
 const effectListElement = document.querySelector('.effects__list');
 const effectLevelContainerElement = document.querySelector('.img-upload__effect-level');
+const effectPreviewElements = effectListElement.querySelectorAll('.effects__preview');
 
 const templateDataErrorElement = document.querySelector('#data-error').content.querySelector('.data-error');
 const templateErrorElement = document.querySelector('#error').content.querySelector('.error');
 const templateSuccessElement = document.querySelector('#success').content.querySelector('.success');
+
+const imageFiltersElement = document.querySelector('.img-filters');
 
 export { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement };
 export { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, cancelButtonElement, submitButtonElement };
@@ -49,5 +53,6 @@ export { commentsContainerElement, commentsCountElement, commentsLoaderElement, 
 export { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, uploadPreviewImgElement };
 export { textHashtagsElement, textDescriptionElement };
 export { scaleSmallerElement, scaleBiggerElement, scaleValueElement };
-export { effectLevelValueElement, effectSliderElement, effectListElement, effectLevelContainerElement };
-export { templateDataErrorElement, templateErrorElement, templateSuccessElement, SUCCESS_BUTTON_CLASS, ERROR_BUTTON_CLASS };
+export { effectLevelValueElement, effectSliderElement, effectListElement, effectLevelContainerElement, effectPreviewElements };
+export { templateDataErrorElement, templateErrorElement, templateSuccessElement, SUCCESS_BUTTON_CLASS, ERROR_BUTTON_CLASS, PICTURE_CLASS };
+export { imageFiltersElement };
