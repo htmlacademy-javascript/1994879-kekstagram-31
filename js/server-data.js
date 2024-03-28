@@ -1,5 +1,3 @@
-import { showErrorAlert } from './messages';
-
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 const Route = {
   GET: '/data',
@@ -11,14 +9,11 @@ const Method = {
 };
 
 const request = async (url, method = Method.GET, body = null) => {
-  try {
-    const responce = await fetch(url, { method, body });
-    if (responce.ok) {
-      return responce.json();
-    }
-  } catch(error) {
-    showErrorAlert(error);
+  const responce = await fetch(url, { method, body });
+  if (!responce.ok) {
+    throw new Error(responce.status);
   }
+  return responce.json();
 };
 
 const getData = async () => await request(BASE_URL + Route.GET);

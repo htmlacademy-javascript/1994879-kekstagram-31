@@ -1,3 +1,5 @@
+import { uploadFormElement, textHashtagsElement, textDescriptionElement } from './selectors-key';
+
 const HASHTAGS_LIMIT = 5;
 const HASHTAGS_SEPARATOR = ' ';
 const hashtagFormat = /^#[a-za-яë0-9]{1,19}$/i;
@@ -9,6 +11,15 @@ const ErrorValidation = {
   HASHTAG_FORMAT: 'Хэштег - начинается с #, затем буквы или цифры,не более 20 символов, спецсимволы запрещены.',
   HASHTAG_UNIQUE: 'Один и тот же хэштег не может быть использован дважды.',
 };
+
+const pristineConfig = {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error',
+  errorTextTag: 'div',
+};
+
+let pristine;
 
 const normalizeHashtags = (tagString) => tagString.trim().toLowerCase().split(HASHTAGS_SEPARATOR).filter((tag) => Boolean(tag.length));
 
@@ -23,4 +34,16 @@ const validateHahstagsUnique = (value) => {
 
 const validateComments = (value) => value.length >= CommentValidationRange.MIN && value.length <= CommentValidationRange.MAX;
 
-export { validateHahstagsCount, validateHahstagsFormat, validateHahstagsUnique, validateComments, ErrorValidation };
+const isValidationPass = () => pristine.validate();
+
+const resetValidator = () => pristine.reset();
+
+const createValidator = () => {
+  pristine = new Pristine(uploadFormElement, pristineConfig, true);
+  pristine.addValidator(textHashtagsElement, validateHahstagsCount, ErrorValidation.HASHTAG_COUNT);
+  pristine.addValidator(textHashtagsElement, validateHahstagsFormat, ErrorValidation.HASHTAG_FORMAT);
+  pristine.addValidator(textHashtagsElement, validateHahstagsUnique, ErrorValidation.HASHTAG_UNIQUE);
+  pristine.addValidator(textDescriptionElement, validateComments, ErrorValidation.COMMENT_LIMIT);
+};
+
+export { createValidator, resetValidator, isValidationPass };

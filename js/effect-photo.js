@@ -8,6 +8,10 @@ const sliderOptions = {
   start: 1,
   step: 0.1,
   connect: 'lower',
+  format: {
+    to: (value) => Number(value),
+    from: (value) => Number(value),
+  },
 };
 
 const effectsConfig = {
@@ -61,7 +65,6 @@ const selectEffect = (key) => {
 
 const onEffectListClick = (evt) => {
   if (isEffectElement(evt)) {
-    evt.preventDefault();
     selectEffect(evt.target.value);
   }
 };

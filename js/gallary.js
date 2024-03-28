@@ -2,6 +2,8 @@
 import { renderComments } from './render-comments';
 import { openPhotoModal } from './render-photo';
 import { getData } from './server-data';
+import { initFilters } from './filter-thumbnails.js';
+import { showErrorAlert } from './messages';
 
 const COMMENTS_SHOW_COUNT = 5;
 
@@ -10,7 +12,13 @@ let currentPhoto = null;
 let currentCommentsCount = 0;
 
 const initGallary = async () => {
-  photos = await getData();
+  try {
+    photos = await getData();
+  } catch(error) {
+    showErrorAlert(error);
+    return;
+  }
+  initFilters(photos);
   return photos;
 };
 
