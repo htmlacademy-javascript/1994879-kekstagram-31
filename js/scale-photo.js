@@ -1,6 +1,11 @@
 import { scaleValueElement, uploadPreviewImgElement } from './selectors-key';
 
-const Scale = { MIN: 25, MAX: 100, DEFAULT: 100, STEP: 25 };
+const Scale = {
+  MIN: 25,
+  MAX: 100,
+  DEFAULT: 100,
+  STEP: 25
+};
 
 const getPhotoScale = () => parseInt(scaleValueElement.value, 10);
 
