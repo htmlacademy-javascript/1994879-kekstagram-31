@@ -53,9 +53,7 @@ const resetForm = () => {
   resetValidator();
   scaleDefault();
   resetEffect();
-  textHashtagsElement.value = '';
-  textDescriptionElement.value = '';
-  uploadInputElement.value = '';
+  uploadFormElement.reset();
 };
 
 const openUpload = (file) => {
@@ -81,11 +79,11 @@ const unblockSubmitButton = () => {
 
 const sendForm = async (data) => {
   const formData = new FormData(data);
-  const response = await sendData(formData);
-  if (response) {
+  try {
+    await sendData(formData);
     showSuccessMessage();
     closeUpload();
-  } else {
+  } catch(error) {
     showErrorMessage();
   }
 };
