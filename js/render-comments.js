@@ -1,12 +1,18 @@
 import { commentsContainerElement } from './selectors-key';
 import { renderElements, newElement } from './util';
 
+const AVATAR_WIDTH = 35;
+const AVATAR_HEIGHT = 35;
+const SOCIAL_COMMENT_CLASS = 'social__comment';
+const SOCIAL_PICTURE_CLASS = 'social__picture';
+const SOCIAL_TEXT_CLASS = 'social__text';
+
 const getComment = ({ avatar, name, message }) => {
-  const li = newElement('li', 'social__comment');
-  const img = newElement('img', 'social__picture');
-  const p = newElement('p', 'social__text');
-  img.size = 35;
-  img.height = 35;
+  const li = newElement('li', SOCIAL_COMMENT_CLASS);
+  const img = newElement('img', SOCIAL_PICTURE_CLASS);
+  const p = newElement('p', SOCIAL_TEXT_CLASS);
+  img.width = AVATAR_WIDTH;
+  img.height = AVATAR_HEIGHT;
   img.src = avatar;
   img.alt = name;
   p.textContent = message;

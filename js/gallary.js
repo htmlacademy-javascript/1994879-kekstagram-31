@@ -1,7 +1,7 @@
 
 import { renderComments } from './render-comments';
 import { openPhotoModal } from './render-photo';
-import { getData } from './server-data';
+import { loadPhotos } from './server-data';
 import { initFilters } from './filter-thumbnails.js';
 import { showErrorAlert } from './messages';
 
@@ -13,18 +13,17 @@ let currentCommentsCount = 0;
 
 const initGallary = async () => {
   try {
-    photos = await getData();
+    photos = await loadPhotos();
   } catch(error) {
-    showErrorAlert(error);
+    showErrorAlert();
     return;
   }
   initFilters(photos);
-  return photos;
 };
 
 const isAllCommentsRendered = () => currentCommentsCount >= currentPhoto.comments.length;
 
-const renderPartComments = () => {
+const renderNextComments = () => {
   const part = currentPhoto.comments.slice(currentCommentsCount, currentCommentsCount + COMMENTS_SHOW_COUNT);
   renderComments(part);
   currentCommentsCount += part.length;
@@ -43,4 +42,4 @@ const showPhotoById = (id) => {
   openPhotoModal(currentPhoto);
 };
 
-export { initGallary, showPhotoById, renderPartComments, isAllCommentsRendered };
+export { initGallary, showPhotoById, renderNextComments, isAllCommentsRendered };

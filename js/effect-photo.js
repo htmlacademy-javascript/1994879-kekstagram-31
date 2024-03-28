@@ -1,7 +1,8 @@
 import { uploadPreviewImgElement, effectSliderElement, effectLevelValueElement, effectLevelContainerElement } from './selectors-key';
-import { isEffectElement, toggleVisibilityElement } from './util';
+import { toggleVisibilityElement } from './util';
 
 const DEFAULT_EFFECT = 'none';
+const EFFECT_CLASS = 'effect';
 
 const sliderOptions = {
   range: { min: 0, max: 1, },
@@ -64,7 +65,7 @@ const selectEffect = (key) => {
 };
 
 const onEffectListClick = (evt) => {
-  if (isEffectElement(evt)) {
+  if (evt.target.name === EFFECT_CLASS) {
     selectEffect(evt.target.value);
   }
 };

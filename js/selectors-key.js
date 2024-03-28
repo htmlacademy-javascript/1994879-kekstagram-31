@@ -1,7 +1,3 @@
-const SUCCESS_BUTTON_CLASS = '.success__button';
-const ERROR_BUTTON_CLASS = '.error__button';
-const PICTURE_CLASS = '.picture';
-
 const templateElement = document.querySelector('#picture').content;
 const templateImgElement = templateElement.querySelector('.picture__img');
 const templateLikesElement = templateElement.querySelector('.picture__likes');
@@ -54,5 +50,5 @@ export { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCanc
 export { textHashtagsElement, textDescriptionElement };
 export { scaleSmallerElement, scaleBiggerElement, scaleValueElement };
 export { effectLevelValueElement, effectSliderElement, effectListElement, effectLevelContainerElement, effectPreviewElements };
-export { templateDataErrorElement, templateErrorElement, templateSuccessElement, SUCCESS_BUTTON_CLASS, ERROR_BUTTON_CLASS, PICTURE_CLASS };
+export { templateDataErrorElement, templateErrorElement, templateSuccessElement };
 export { imageFiltersElement };

@@ -9,9 +9,9 @@ const Scale = {
 
 const getPhotoScale = () => parseInt(scaleValueElement.value, 10);
 
-const setPhotoScale = (scale) => {
-  scaleValueElement.value = `${scale}%`;
-  uploadPreviewImgElement.style.transform = `scale(${scale / 100})`;
+const setPhotoScale = (value) => {
+  scaleValueElement.value = `${value}%`;
+  uploadPreviewImgElement.style.transform = `scale(${value / 100})`;
 };
 
 const onScaleBiggerClick = () => setPhotoScale(Math.min(Scale.MAX, getPhotoScale() + Scale.STEP));

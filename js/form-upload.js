@@ -1,10 +1,10 @@
 import { onScaleSmallerClick, onScaleBiggerClick, scaleDefault } from './scale-photo';
 import { uploadFormElement, uploadInputElement, uploadOverlayElement, uploadCancelButtonElement, submitButtonElement, textHashtagsElement, textDescriptionElement } from './selectors-key';
 import { scaleSmallerElement, scaleBiggerElement, effectListElement, effectPreviewElements, uploadPreviewImgElement } from './selectors-key';
-import { closeModalElement, openModalElement, isEscapeKey } from './util';
+import { closeModal, openModal, isEscapeKey } from './util';
 import { createValidator, resetValidator, isValidationPass } from './validation';
 import { onEffectListClick, createEffectSlider, resetEffect } from './effect-photo';
-import { sendData } from './server-data';
+import { sendPhoto } from './server-data';
 import { showSuccessMessage, showErrorMessage } from './messages';
 
 const SubmitButtonText = {
@@ -58,7 +58,7 @@ const resetForm = () => {
 
 const openUpload = (file) => {
   setPreviewImage(file);
-  openModalElement(uploadOverlayElement);
+  openModal(uploadOverlayElement);
   uploadAddListeners();
 };
 
@@ -80,7 +80,7 @@ const unblockSubmitButton = () => {
 const sendForm = async (data) => {
   const formData = new FormData(data);
   try {
-    await sendData(formData);
+    await sendPhoto(formData);
     showSuccessMessage();
     closeUpload();
   } catch(error) {
@@ -107,7 +107,7 @@ const formUpload = () => {
 };
 
 function closeUpload() {
-  closeModalElement(uploadOverlayElement);
+  closeModal(uploadOverlayElement);
   uploadRemoveListeners();
   resetForm();
 }

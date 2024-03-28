@@ -3,7 +3,7 @@ import { uploadFormElement, textHashtagsElement, textDescriptionElement } from '
 const HASHTAGS_LIMIT = 5;
 const HASHTAGS_SEPARATOR = ' ';
 const hashtagFormat = /^#[a-za-яë0-9]{1,19}$/i;
-const CommentValidationRange = { MIN: 0, MAX: 140};
+const CommentValidationRange = { MIN: 0, MAX: 140 };
 
 const ErrorValidation = {
   COMMENT_LIMIT: 'Длина комментария не может составлять больше 140 символов.',
@@ -35,7 +35,6 @@ const validateHahstagsUnique = (value) => {
 const validateComments = (value) => value.length >= CommentValidationRange.MIN && value.length <= CommentValidationRange.MAX;
 
 const isValidationPass = () => pristine.validate();
-
 const resetValidator = () => pristine.reset();
 
 const createValidator = () => {
