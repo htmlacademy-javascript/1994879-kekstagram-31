@@ -1,5 +1,5 @@
-import { isEscapeKey, openModalElement, closeModalElement, toggleVisibilityElement } from './util';
-import { renderPartComments, isAllCommentsRendered } from './gallary';
+import { isEscapeKey, openModal, closeModal, toggleVisibilityElement } from './util';
+import { renderNextComments, isAllCommentsRendered } from './gallary';
 import { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, commentsLoaderElement, commentsTotalElement,
   commentsShowElement, cancelButtonElement } from './selectors-key';
 import { clearComments } from './render-comments';
@@ -23,7 +23,7 @@ const onPhotoKeydown = (evt) => {
 const onCancelButtonClick = () => closePhoto();
 
 const loadComments = () => {
-  commentsShowElement.textContent = renderPartComments();
+  commentsShowElement.textContent = renderNextComments();
   toggleVisibilityElement(isAllCommentsRendered(), commentsLoaderElement);
 };
 
@@ -43,7 +43,7 @@ const photoRemoveListeners = () => {
 
 const openPhotoModal = (photo) => {
   renderPhoto(photo);
-  openModalElement(photoElement);
+  openModal(photoElement);
 
   clearComments();
   loadComments();
@@ -51,7 +51,7 @@ const openPhotoModal = (photo) => {
 };
 
 function closePhoto() {
-  closeModalElement(photoElement);
+  closeModal(photoElement);
   photoRemoveListeners();
 }
 

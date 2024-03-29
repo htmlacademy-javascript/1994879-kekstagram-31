@@ -1,32 +1,20 @@
 const HIDDEN_CLASS = 'hidden';
-
-const getRandomInRange = (min, max) => Math.round(Math.random() * (max - min) + min);
-const getRandomElement = (elements) => elements[getRandomInRange(0, elements.length - 1)];
-
-const createIdCounter = () => {
-  let lastId = 0;
-
-  return () => {
-    lastId += 1;
-    return lastId;
-  };
-};
+const MODAL_CLASS = 'modal-open';
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
-const isEffectElement = (evt) => evt.target?.name === 'effect';
 
 const hideElement = (element) => element.classList.add(HIDDEN_CLASS);
 const showElement = (element) => element.classList.remove(HIDDEN_CLASS);
 const toggleVisibilityElement = (condition, element) => condition ? hideElement(element) : showElement(element);
 
-const openModalElement = (element) => {
+const openModal = (element) => {
   showElement(element);
-  document.body.classList.add('modal-open');
+  document.body.classList.add(MODAL_CLASS);
 };
 
-const closeModalElement = (element) => {
+const closeModal = (element) => {
   hideElement(element);
-  document.body.classList.remove('modal-open');
+  document.body.classList.remove(MODAL_CLASS);
 };
 
 const renderElements = (elements, makeRender, container) => {
@@ -56,7 +44,6 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { getRandomInRange, getRandomElement, createIdCounter, isEscapeKey, isEffectElement, hideElement, showElement };
+export { isEscapeKey, hideElement, showElement, openModal, closeModal };
 export { toggleVisibilityElement, renderElements, newElement, bodyAppendElement };
-export { openModalElement, closeModalElement };
 export { debounce };

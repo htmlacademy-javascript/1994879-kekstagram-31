@@ -4,6 +4,7 @@ import { debounce } from './util';
 
 const DEBOUNCE_TIMEOUT = 500;
 const FILTER_RANDOM_COUNT = 10;
+const FILTERS_BUTTON_CLASS = 'img-filters__button';
 const FILTERS_BUTTON_ACTIVE = 'img-filters__button--active';
 const FILTERS_INACTIVE = 'img-filters--inactive';
 
@@ -32,13 +33,9 @@ const getFilterdPhoto = () => {
   }
 };
 
-const filterExists = (value) => Object.values(Filters).includes(value);
 const debouncedRenderThumbnails = debounce(renderThumbnails, DEBOUNCE_TIMEOUT);
 
 const selectFilter = (filter) => {
-  if (!filterExists(filter)) {
-    return;
-  }
   FilterButtons[currentFilter].classList.remove(FILTERS_BUTTON_ACTIVE);
   FilterButtons[filter].classList.add(FILTERS_BUTTON_ACTIVE);
   currentFilter = filter;
@@ -46,14 +43,19 @@ const selectFilter = (filter) => {
   debouncedRenderThumbnails(getFilterdPhoto());
 };
 
-const onFiltersClick = (evt) => selectFilter(evt.target.id);
+const onFiltersClick = (evt) => {
+  const element = evt.target;
+  if (element.classList.contains(FILTERS_BUTTON_CLASS)) {
+    selectFilter(element.id);
+  }
+};
 
 const initFilters = (photos) => {
   thumbnails = photos;
   Object.values(Filters).forEach((value) => (FilterButtons[value] = imageFiltersElement.querySelector(`#${value}`)));
   currentFilter = Object.values(FilterButtons).find((element) => element.classList.contains(FILTERS_BUTTON_ACTIVE)).id;
 
-  selectFilter(currentFilter);
+  renderThumbnails(getFilterdPhoto());
   imageFiltersElement.classList.remove(FILTERS_INACTIVE);
   imageFiltersElement.addEventListener('click', onFiltersClick);
 };

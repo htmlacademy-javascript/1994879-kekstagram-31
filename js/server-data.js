@@ -16,7 +16,7 @@ const request = async (url, method = Method.GET, body = null) => {
   return responce.json();
 };
 
-const getData = async () => await request(BASE_URL + Route.GET);
-const sendData = async (body) => await request(BASE_URL + Route.POST, Method.POST, body);
+const loadPhotos = async () => await request(BASE_URL + Route.GET);
+const sendPhoto = async (body) => await request(BASE_URL + Route.POST, Method.POST, body);
 
-export {getData, sendData};
+export {loadPhotos, sendPhoto};

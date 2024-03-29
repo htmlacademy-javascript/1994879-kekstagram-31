@@ -1,7 +1,9 @@
 import { bodyAppendElement, isEscapeKey } from './util';
-import { templateDataErrorElement, templateErrorElement, templateSuccessElement, SUCCESS_BUTTON_CLASS, ERROR_BUTTON_CLASS } from './selectors-key';
+import { templateDataErrorElement, templateErrorElement, templateSuccessElement } from './selectors-key';
 
 const MESSAGE_TIMEOUT = 5000;
+const SUCCESS_BUTTON_CLASS = '.success__button';
+const ERROR_BUTTON_CLASS = '.error__button';
 
 const showMessage = (templateElement, buttonClass) => {
   const messageElement = bodyAppendElement(templateElement);
