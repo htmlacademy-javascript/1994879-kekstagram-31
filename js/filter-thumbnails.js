@@ -21,7 +21,7 @@ let currentFilter;
 const sortRandom = () => 0.5 - Math.random();
 const sortByComments = (photoA, photoB) => photoB.comments.length - photoA.comments.length;
 
-const getFilterdPhoto = () => {
+const getFilteredPhoto = () => {
   const photos = thumbnails.slice();
   switch (currentFilter) {
     case Filters.RANDOM:
@@ -40,7 +40,7 @@ const selectFilter = (filter) => {
   FilterButtons[filter].classList.add(FILTERS_BUTTON_ACTIVE);
   currentFilter = filter;
 
-  debouncedRenderThumbnails(getFilterdPhoto());
+  debouncedRenderThumbnails(getFilteredPhoto());
 };
 
 const onFiltersClick = (evt) => {
@@ -55,7 +55,7 @@ const initFilters = (photos) => {
   Object.values(Filters).forEach((value) => (FilterButtons[value] = imageFiltersElement.querySelector(`#${value}`)));
   currentFilter = Object.values(FilterButtons).find((element) => element.classList.contains(FILTERS_BUTTON_ACTIVE)).id;
 
-  renderThumbnails(getFilterdPhoto());
+  renderThumbnails(getFilteredPhoto());
   imageFiltersElement.classList.remove(FILTERS_INACTIVE);
   imageFiltersElement.addEventListener('click', onFiltersClick);
 };
