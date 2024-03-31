@@ -1,8 +1,8 @@
-import { initGallary } from './gallary.js';
+import { initGallery } from './gallery.js';
 import { formUpload } from './form-upload.js';
 
 const start = () => {
-  initGallary();
+  initGallery();
   formUpload();
 };
 

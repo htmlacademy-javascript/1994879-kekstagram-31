@@ -2,7 +2,7 @@ import { uploadFormElement, textHashtagsElement, textDescriptionElement } from '
 
 const HASHTAGS_LIMIT = 5;
 const HASHTAGS_SEPARATOR = ' ';
-const hashtagFormat = /^#[a-za-яë0-9]{1,19}$/i;
+const HASHTAG_PATTERN = /^#[a-za-яë0-9]{1,19}$/i;
 const CommentValidationRange = { MIN: 0, MAX: 140 };
 
 const ErrorValidation = {
@@ -23,11 +23,11 @@ let pristine;
 
 const normalizeHashtags = (tagString) => tagString.trim().toLowerCase().split(HASHTAGS_SEPARATOR).filter((tag) => Boolean(tag.length));
 
-const validateHahstagsCount = (value) => normalizeHashtags(value).length <= HASHTAGS_LIMIT;
+const validateHashtagsCount = (value) => normalizeHashtags(value).length <= HASHTAGS_LIMIT;
 
-const validateHahstagsFormat = (value) => normalizeHashtags(value).every((tag) => hashtagFormat.test(tag));
+const validateHashtagsFormat = (value) => normalizeHashtags(value).every((tag) => HASHTAG_PATTERN.test(tag));
 
-const validateHahstagsUnique = (value) => {
+const validateHashtagsUnique = (value) => {
   const tags = normalizeHashtags(value);
   return tags.length === new Set(tags).size;
 };
@@ -39,9 +39,9 @@ const resetValidator = () => pristine.reset();
 
 const createValidator = () => {
   pristine = new Pristine(uploadFormElement, pristineConfig, true);
-  pristine.addValidator(textHashtagsElement, validateHahstagsCount, ErrorValidation.HASHTAG_COUNT);
-  pristine.addValidator(textHashtagsElement, validateHahstagsFormat, ErrorValidation.HASHTAG_FORMAT);
-  pristine.addValidator(textHashtagsElement, validateHahstagsUnique, ErrorValidation.HASHTAG_UNIQUE);
+  pristine.addValidator(textHashtagsElement, validateHashtagsCount, ErrorValidation.HASHTAG_COUNT);
+  pristine.addValidator(textHashtagsElement, validateHashtagsFormat, ErrorValidation.HASHTAG_FORMAT);
+  pristine.addValidator(textHashtagsElement, validateHashtagsUnique, ErrorValidation.HASHTAG_UNIQUE);
   pristine.addValidator(textDescriptionElement, validateComments, ErrorValidation.COMMENT_LIMIT);
 };
 

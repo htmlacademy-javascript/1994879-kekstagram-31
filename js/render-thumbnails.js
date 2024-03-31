@@ -1,6 +1,6 @@
 import { templateElement, picturesContainerElement, templateImgElement, templateLikesElement, templateCommentsElement } from './selectors-key';
 import { renderElements } from './util';
-import { showPhotoById } from './gallary';
+import { showPhotoById } from './gallery';
 
 const PICTURE_CLASS = '.picture';
 const THUMBNAIL_KEY = 'thumbnail';

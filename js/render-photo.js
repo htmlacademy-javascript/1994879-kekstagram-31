@@ -1,7 +1,7 @@
 import { isEscapeKey, openModal, closeModal, toggleVisibilityElement } from './util';
-import { renderNextComments, isAllCommentsRendered } from './gallary';
+import { renderNextComments, isAllCommentsRendered } from './gallery';
 import { photoElement, photoImgElement, photoLikesElement, photoDescriptionElement, commentsLoaderElement, commentsTotalElement,
-  commentsShowElement, cancelButtonElement } from './selectors-key';
+  commentsShowElement, cancelButtonElement, commentInputElement } from './selectors-key';
 import { clearComments } from './render-comments';
 
 const renderPhoto = ({url, description, likes, comments }) => {
@@ -52,6 +52,7 @@ const openPhotoModal = (photo) => {
 
 function closePhoto() {
   closeModal(photoElement);
+  commentInputElement.value = '';
   photoRemoveListeners();
 }
 

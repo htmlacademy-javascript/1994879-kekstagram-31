@@ -9,14 +9,14 @@ const Method = {
 };
 
 const request = async (url, method = Method.GET, body = null) => {
-  const responce = await fetch(url, { method, body });
-  if (!responce.ok) {
-    throw new Error(responce.status);
+  const response = await fetch(url, { method, body });
+  if (!response.ok) {
+    throw new Error(`Ошибка запроса, код = ${response.status}`);
   }
-  return responce.json();
+  return response.json();
 };
 
 const loadPhotos = async () => await request(BASE_URL + Route.GET);
 const sendPhoto = async (body) => await request(BASE_URL + Route.POST, Method.POST, body);
 
-export {loadPhotos, sendPhoto};
+export { loadPhotos, sendPhoto };
